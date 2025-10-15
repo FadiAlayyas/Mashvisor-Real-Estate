@@ -1,0 +1,43 @@
+# Laravel
+/laravel-api/node_modules
+/laravel-api/public/hot
+/laravel-api/public/storage
+/laravel-api/storage/*.key
+/laravel-api/vendor
+/laravel-api/.env
+/laravel-api/.env.backup
+/laravel-api/.env.production
+/laravel-api/.phpunit.result.cache
+/laravel-api/Homestead.json
+/laravel-api/Homestead.yaml
+/laravel-api/auth.json
+/laravel-api/npm-debug.log
+/laravel-api/yarn-error.log
+
+# Node.js API
+/node-api/node_modules
+/node-api/logs
+/node-api/*.log
+/node-api/npm-debug.log*
+/node-api/yarn-debug.log*
+/node-api/yarn-error.log*
+/node-api/.env
+/node-api/.env.development.local
+/node-api/.env.test.local
+/node-api/.env.production.local
+/node-api/.env.local
+
+# Docker
+.docker
+docker-compose.override.yml
+
+# IDE/Editor
+.idea/
+.vscode/
+.fleet/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
