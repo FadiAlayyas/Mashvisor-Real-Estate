@@ -6,54 +6,14 @@ A comprehensive real estate management system with dual APIs built using Laravel
 
 ## 📋 Table of Contents
 
-- [Features](#-features)
 - [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
 - [Database Schema](#-database-schema)
 - [API Endpoints](#-api-endpoints)
 - [Setup Instructions](#-setup-instructions)
 - [Docker Setup](#-docker-setup)
-- [Development](#-development)
-- [Testing](#-testing)
 - [Project Structure](#-project-structure)
 - [Design Decisions](#-design-decisions)
 - [Future Improvements](#-future-improvements)
-- [Contributing](#-contributing)
-
----
-
-## ✨ Features
-
-### Laravel API Features
-- ✅ RESTful API Architecture
-- ✅ Service-Repository Pattern
-- ✅ Resource Transformations
-- ✅ Input Validation & Sanitization
-- ✅ Error Handling & Logging
-- ✅ API Authentication
-- ✅ Database Migrations & Seeders
-- ✅ Relational Data Management
-- ✅ Standardized JSON Responses
-
-### Node.js API Features
-- ✅ Full CRUD Operations
-- ✅ MongoDB Aggregations
-- ✅ Data Formatting & Validation
-- ✅ Agent Statistics
-- ✅ Views Tracking
-- ✅ Multi-Database Support
-- ✅ Error Handling Middleware
-- ✅ Input Validation
-- ✅ API Documentation
-
-### System Features
-- ✅ Containerized Development
-- ✅ Nginx Reverse Proxy
-- ✅ Database Persistence
-- ✅ Health Monitoring
-- ✅ Scalable Architecture
-- ✅ Cross-API Communication
-- ✅ Shared Authentication
 
 ---
 
@@ -80,7 +40,6 @@ A comprehensive real estate management system with dual APIs built using Laravel
 ### Databases
 - **MySQL 8.0** - Shared Database for Both APIs
 - **MongoDB 7.0** - Node.js API Analytics
-- **Redis** - Caching (Optional)
 
 ### DevOps & Infrastructure
 - **Docker** - Containerization
@@ -89,29 +48,6 @@ A comprehensive real estate management system with dual APIs built using Laravel
 - **Health Checks** - Service Monitoring
 - **Volume Persistence** - Data Persistence
 - **Git** - Version Control
-
----
-
-## 🏗 Architecture
-
-### Clean Architecture Pattern
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Controllers   │───▶│    Services     │───▶│  Repositories   │
-│   (Routes)      │    │  (Business)     │    │   (Data Access) │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Middlewares   │    │    Utilities    │    │     Models      │
-│ (Error, Auth)   │    │  (Formatting)   │    │ (Sequelize/MG)  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
-
-### Data Flow
-1. **Request** → Controller → Service → Repository → Database
-2. **Response** ← Controller ← Service ← Repository ← Database
-3. **Error Handling** → Middleware → JSON Response
 
 ---
 
@@ -228,14 +164,14 @@ GET /listings
     "id": 1,
     "title": "Luxury Sunset Blvd Home",
     "city": "Los Angeles",
-    "price": "500000.00",
+    "price": 500000.00,
     "bedrooms": 3,
     "agentId": 1,
     "agentName": "Alice Johnson",
     "state": "California",
     "address": "123 Sunset Blvd",
     "zipCode": "90001",
-    "baths": "2.0",
+    "baths": 2,
     "createdAt": "2025-01-20T10:00:00.000Z",
     "updatedAt": "2025-01-20T10:00:00.000Z"
   }
@@ -307,59 +243,8 @@ GET /stats/active-agents
 
 #### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd mashvisor/node-api
+git clone https://github.com/FadiAlayyas/Mashvisor-Real-Estate
 ```
-
-#### 2. Environment Configuration
-Create `.env` file in project root:
-```env
-NODE_ENV=production
-PORT=3000
-
-# MySQL Configuration
-MYSQL_HOST=mysql
-MYSQL_DB=realestate
-MYSQL_USER=app_user
-MYSQL_PASS=app_password123
-
-# MongoDB Configuration
-MONGO_URI=mongodb://root:rootpassword123@mongodb:27017/realestate?authSource=admin
-```
-
-#### 3. Run with Docker
-```bash
-# Full stack (MySQL + MongoDB + API)
-docker-compose up -d --build
-
-# Development mode (databases only)
-docker-compose -f docker-compose.dev.yml up -d
-npm run dev
-```
-
-### Option 2: Local Development
-
-#### 1. Install Dependencies
-```bash
-npm install
-```
-
-#### 2. Setup Databases
-- **MySQL**: Create database `realestate`
-- **MongoDB**: Create database `realestate`
-
-#### 3. Update Environment
-```env
-MYSQL_HOST=localhost
-MONGO_URI=mongodb://localhost:27017/realestate
-```
-
-#### 4. Run Application
-```bash
-npm run dev
-```
-
----
 
 ## 🐳 Docker Setup
 
@@ -404,33 +289,9 @@ docker-compose down -v --remove-orphans
 
 # Check service status
 docker-compose ps
-
-# Access MySQL
-docker exec -it mashvisor-mysql mysql -u app_user -p realestate
-
-# Access MongoDB
-docker exec -it mashvisor-mongodb mongosh -u root -p realestate
 ```
 
 ---
-
-## 🔧 Development
-
-### Scripts
-```bash
-npm start          # Production mode
-npm run dev        # Development mode with nodemon
-npm test           # Run tests (placeholder)
-```
-
-### File Watching
-```bash
-# Development with auto-reload
-npm run dev
-
-# Docker with volume mounting
-docker-compose -f docker-compose.dev.yml up -d
-```
 
 ### Database Migrations
 ```bash
@@ -438,221 +299,69 @@ docker-compose -f docker-compose.dev.yml up -d
 # MongoDB collections are created by initialization scripts
 ```
 
----
-
-## 🧪 Testing
-
-### Manual Testing
-
-#### Test Listings CRUD
-```bash
-# Create listing
-curl -X POST http://localhost:3000/listings \
-  -H "Content-Type: application/json" \
-  -d '{"property_id":1,"agent_id":1,"title":"Test Home","price":300000}'
-
-# Get all listings
-curl http://localhost:3000/listings
-
-# Get specific listing
-curl http://localhost:3000/listings/1
-
-# Update listing
-curl -X PUT http://localhost:3000/listings/1 \
-  -H "Content-Type: application/json" \
-  -d '{"price":350000}'
-
-# Delete listing
-curl -X DELETE http://localhost:3000/listings/1
-```
-
-#### Test Analytics
-```bash
-# Get active agents stats
-curl http://localhost:3000/stats/active-agents
-```
-
-### Automated Testing (Future)
-```bash
-npm test           # Unit tests
-npm run test:e2e   # Integration tests
-npm run test:cov   # Coverage report
-```
-
----
-
-## 📁 Project Structure
-
-```
-mashvisor/node-api/
-├── src/
-│   ├── config/                 # Database configurations
-│   │   ├── db.mysql.js        # Sequelize setup
-│   │   ├── db.mongo.js        # Mongoose setup
-│   │   └── index.js           # Config index
-│   ├── controllers/           # Route controllers
-│   │   ├── listingController.js
-│   │   └── agentController.js
-│   ├── models/               # Database models
-│   │   ├── mysql/
-│   │   │   └── Listing.js     # Sequelize models
-│   │   └── mongo/
-│   │       ├── Agent.js       # Mongoose schemas
-│   │       └── Listing.js
-│   ├── repositories/         # Data access layer
-│   │   ├── listingRepository.js
-│   │   └── agentRepository.js
-│   ├── services/            # Business logic
-│   │   ├── listingService.js
-│   │   └── agentService.js
-│   ├── routes/              # Express routes
-│   │   ├── listingRoutes.js
-│   │   └── agentRoutes.js
-│   ├── middlewares/         # Custom middlewares
-│   │   ├── errorHandler.js
-│   │   └── notFound.js
-│   ├── utils/              # Helper functions
-│   │   └── format.js       # City/price formatting
-│   ├── app.js              # Express app setup
-│   └── server.js           # Server entry point
-├── docker/                 # Docker initialization
-│   ├── mysql/init/         # MySQL setup scripts
-│   │   ├── mashvisor_dump_db2.sql
-│   │   └── 01-init.sql
-│   └── mongodb/init/       # MongoDB setup scripts
-│       ├── mashvisor_dump_db1.js
-│       ├── agents.json
-│       ├── listings.json
-│       └── views.json
-├── docker-compose.yml      # Production setup
-├── docker-compose.dev.yml  # Development setup
-├── Dockerfile             # Node.js container
-├── .dockerignore          # Docker ignore rules
-├── package.json           # Dependencies & scripts
-└── README.md             # This file
-```
-
----
-
 ## 🎯 Design Decisions
 
-### 1. **Database Architecture**
-- **Decision**: Dual database approach (MySQL + MongoDB)
-- **Rationale**: 
-  - MySQL for ACID transactions and relational data
-  - MongoDB for analytics and complex aggregations
-  - Best of both worlds for different use cases
-
-### 2. **API Response Format**
-- **Decision**: Consistent JSON structure with formatted data
-- **Rationale**:
-  - City capitalization for better UX
-  - Price formatting for currency display
-  - Unified error response format
-
-### 3. **Clean Architecture**
-- **Decision**: Separation of concerns with layers
-- **Rationale**:
-  - Controllers handle HTTP requests
-  - Services contain business logic
-  - Repositories handle data access
-  - Easier testing and maintenance
-
-### 4. **Docker Strategy**
+### 1. **Docker Strategy**
 - **Decision**: Multi-container setup with health checks
 - **Rationale**:
   - Consistent development environment
   - Easy deployment and scaling
   - Service dependency management
-
-### 5. **Error Handling**
-- **Decision**: Centralized error middleware
-- **Rationale**:
-  - Consistent error responses
-  - Easy debugging and monitoring
-  - User-friendly error messages
-
 ---
 
 ## 🚀 Future Improvements
 
 ### If I Had More Than 4 Hours:
 
-#### 1. **Testing Suite**
-- [ ] Unit tests for services and repositories
-- [ ] Integration tests for API endpoints
-- [ ] End-to-end tests with test databases
-- [ ] Test coverage reporting
-- [ ] Automated testing in CI/CD
-
-#### 2. **Authentication & Authorization**
+#### 1. **Authentication & Authorization**
 - [ ] JWT-based authentication
 - [ ] Role-based access control (RBAC)
 - [ ] API rate limiting
 - [ ] Request validation middleware
 
-#### 3. **Performance & Scalability**
+#### 2. **Performance & Scalability**
 - [ ] Database connection pooling
 - [ ] Redis caching layer
 - [ ] API response caching
 - [ ] Database indexing optimization
 - [ ] Load balancing support
 
-#### 4. **Monitoring & Logging**
+#### 3. **Monitoring & Logging**
 - [ ] Structured logging with Winston
 - [ ] Application metrics collection
 - [ ] Health check endpoints
 - [ ] Error tracking with Sentry
 - [ ] Performance monitoring
 
-#### 5. **API Enhancements**
+#### 4. **API Enhancements**
 - [ ] Pagination for large datasets
 - [ ] Advanced filtering and sorting
 - [ ] Search functionality
 - [ ] API versioning
 - [ ] OpenAPI/Swagger documentation
 
-#### 6. **Data Management**
+#### 5. **Data Management**
 - [ ] Database migrations system
 - [ ] Seed data management
 - [ ] Backup and restore procedures
 - [ ] Data validation schemas
 - [ ] Soft delete functionality
 
-#### 7. **Security**
+#### 6. **Security**
 - [ ] Input sanitization
 - [ ] SQL injection prevention
 - [ ] CORS configuration
 - [ ] Environment variable validation
 - [ ] Security headers middleware
 
-#### 8. **DevOps & Deployment**
-- [ ] CI/CD pipeline with GitHub Actions
-- [ ] Multi-environment support (dev/staging/prod)
-- [ ] Kubernetes deployment manifests
-- [ ] Environment-specific configurations
-- [ ] Automated database migrations
-
-#### 9. **Code Quality**
-- [ ] ESLint configuration
-- [ ] Prettier code formatting
-- [ ] Pre-commit hooks
-- [ ] Code review guidelines
-- [ ] TypeScript migration
-
-#### 10. **Documentation**
-- [ ] API documentation with Swagger
-- [ ] Architecture decision records (ADRs)
-- [ ] Deployment guides
-- [ ] Troubleshooting documentation
-- [ ] Contributing guidelines
-
 ---
 
 ## 🔗 Quick Links
 
-- **API Base URL**: `http://localhost:3000`
-- **Listings Endpoint**: `GET /listings`
+- **API Base URL For Node Js Api**: `http://localhost:3000`
+- **API Base URL For Laravel Api**: `http://localhost:8000`
+- **Node Listings Endpoint**: `GET /listings`
+- **Laravel Listings Endpoint**: `GET /api/laravel/listings`
 - **Stats Endpoint**: `GET /stats/active-agents`
 - **Docker Status**: `docker-compose ps`
 - **Logs**: `docker-compose logs -f`
