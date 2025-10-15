@@ -1,6 +1,6 @@
-# 🏠 Mashvisor Real Estate API
+# 🏠 Mashvisor Real Estate API System
 
-A professional, production-ready REST API for managing real estate listings and agent statistics. Built with **Node.js**, **Express**, **MySQL**, **MongoDB**, and **Docker**.
+A comprehensive real estate management system with dual APIs built using Laravel and Node.js. The system provides robust functionality for managing property listings, agent information, and property details through two separate but interconnected APIs.
 
 ---
 
@@ -24,45 +24,71 @@ A professional, production-ready REST API for managing real estate listings and 
 
 ## ✨ Features
 
-### Part 1 - MySQL CRUD API for Listings
-- ✅ Full CRUD operations (Create, Read, Update, Delete)
-- ✅ City formatting (stored lowercase, returned capitalized)
-- ✅ Price formatting (2 decimal places)
-- ✅ Relational data with properties and agents
-- ✅ Consistent JSON error responses
-- ✅ Input validation and error handling
+### Laravel API Features
+- ✅ RESTful API Architecture
+- ✅ Service-Repository Pattern
+- ✅ Resource Transformations
+- ✅ Input Validation & Sanitization
+- ✅ Error Handling & Logging
+- ✅ API Authentication
+- ✅ Database Migrations & Seeders
+- ✅ Relational Data Management
+- ✅ Standardized JSON Responses
 
-### Part 2 - MongoDB Aggregation for Active Agents
-- ✅ Active agents statistics endpoint
-- ✅ Complex aggregation pipeline
-- ✅ Price filtering (> $300,000)
-- ✅ Views calculation from separate collection
-- ✅ Sorted by total views (descending)
-- ✅ Includes agents with 0 listings/views
+### Node.js API Features
+- ✅ Full CRUD Operations
+- ✅ MongoDB Aggregations
+- ✅ Data Formatting & Validation
+- ✅ Agent Statistics
+- ✅ Views Tracking
+- ✅ Multi-Database Support
+- ✅ Error Handling Middleware
+- ✅ Input Validation
+- ✅ API Documentation
+
+### System Features
+- ✅ Containerized Development
+- ✅ Nginx Reverse Proxy
+- ✅ Database Persistence
+- ✅ Health Monitoring
+- ✅ Scalable Architecture
+- ✅ Cross-API Communication
+- ✅ Shared Authentication
 
 ---
 
 ## 🛠 Tech Stack
 
-### Backend
-- **Node.js 18** - Runtime environment
-- **Express.js** - Web framework
+### Laravel API
+- **PHP 8.1+** - Programming Language
+- **Laravel 10.x** - PHP Framework
+- **MySQL** - Primary Database
+- **Laravel Sanctum** - API Authentication
+- **Laravel Resource** - API Resource Transformation
+- **Repository Pattern** - Data Access Layer
+- **Service Layer** - Business Logic
+
+### Node.js API
+- **Node.js 18+** - Runtime Environment
+- **Express.js** - Web Framework
 - **Sequelize** - MySQL ORM
 - **Mongoose** - MongoDB ODM
-- **Joi** - Input validation
-- **Morgan** - HTTP logging
-- **CORS** - Cross-origin requests
-- **dotenv** - Environment configuration
+- **Joi** - Input Validation
+- **Morgan** - HTTP Logging
+- **CORS** - Cross-origin Requests
 
 ### Databases
-- **MySQL 8.0** - Primary database for listings CRUD
-- **MongoDB 7.0** - Analytics and aggregation
-- **Docker** - Containerization
+- **MySQL 8.0** - Shared Database for Both APIs
+- **MongoDB 7.0** - Node.js API Analytics
+- **Redis** - Caching (Optional)
 
-### DevOps
-- **Docker Compose** - Multi-container orchestration
-- **Health Checks** - Service monitoring
-- **Volume Persistence** - Data persistence
+### DevOps & Infrastructure
+- **Docker** - Containerization
+- **Docker Compose** - Container Orchestration
+- **Nginx** - Reverse Proxy
+- **Health Checks** - Service Monitoring
+- **Volume Persistence** - Data Persistence
+- **Git** - Version Control
 
 ---
 
